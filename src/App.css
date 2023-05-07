@@ -140,7 +140,7 @@ h1 {
   transform: rotate(-15deg);
   margin-right: 1rem;
   display: inline;
-  fill: rgb(77, 0, 172);
+  fill: rgb(93, 2, 204);
   filter: invert(12%) sepia(45%) saturate(2946%) hue-rotate(271deg) brightness(1224%) contrast(119%);
   width: 100px;
   height: 100px;
