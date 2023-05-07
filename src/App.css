@@ -11,7 +11,15 @@
   --font-roboto: "Roboto Slab", serif;
   --font-raleway: "Raleway", sans-serif;
 }
+::-webkit-scrollbar {
+  width: 0.4em;
+  height: 0.4em;
+  background-color: #000000;
+}
 
+::-webkit-scrollbar-thumb {
+background-color: #50009c;
+}
 body {
   font-family: var(--font-roboto);
   background-color: #121212;
