@@ -9,29 +9,35 @@ const API_URL = "https://www.omdbapi.com/?i=tt3896198&apikey=ba044065";
 const App = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [movies, setMovies] = useState([]);
-
+  const [selectedGenre] = useState("");
+ 
   useEffect(() => {
     if (searchTerm !== "") {
-      searchMovies(searchTerm);
+      searchMovies("", selectedGenre);
     } else {
-      searchMovies("Marvel");
+      searchMovies("Marvel" || selectedGenre);
     }
-  }, [searchTerm]);
-
-  const searchMovies = async (title) => {
-    const response = await fetch(`${API_URL}&s=${title}`);
-    const data = await response.json();
-
-    setMovies(data.Search);
-  }; 
-
-
+  }, [searchTerm, selectedGenre]);
   
+
+  const searchMovies = async (title, genre) => {
+    const response = await fetch(`${API_URL}&s=${title}&type=movie`);
+    const data = await response.json();
+    console.log(data);
+    if (genre) {
+      const filteredMovies = data.Search.filter(movie => movie.Genre.includes(genre));
+      setMovies(filteredMovies);
+    } else {
+      setMovies(data.Search);
+    }
+  };
+  
+  
+
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
+    searchMovies(event.target.value, selectedGenre);
   };
-
-  
 
   return (
     <div className="app">
@@ -42,14 +48,27 @@ const App = () => {
       <h1>MovieLand</h1></div>
       <div className="topmovies">
         <p>Top Movies</p></div>
-      <div class="top-movies">
-        <div class="top-movie active">Avatar: The Way of Water</div>
-        <div class="top-movie">Avengers: Endgame</div>
-        <div class="top-movie">The Batman</div>
-        <div class="top-movie">Jumanji</div>
-        <div class="top-movie">The Jungle Book</div>
-        <div class="top-movie">Blade Runner 2049</div>
-      </div>
+        <div class="top-movies">
+  <div class="top-movie active" onClick={() => searchMovies("Avatar: The Way of Water")}>
+    Avatar: The Way of Water
+  </div>
+  <div class="top-movie" onClick={() => searchMovies("Avengers: Endgame")}>
+    Avengers: Endgame
+  </div>
+  <div class="top-movie" onClick={() => searchMovies("The Batman")}>
+    The Batman
+  </div>
+  <div class="top-movie" onClick={() => searchMovies("Jumanji")}>
+    Jumanji
+  </div>
+  <div class="top-movie" onClick={() => searchMovies("The Jungle Book")}>
+    The Jungle Book
+  </div>
+  <div class="top-movie" onClick={() => searchMovies("Blade Runner 2049")}>
+    Blade Runner 2049
+  </div>
+</div>
+
       
       
       <div className="search">
@@ -58,13 +77,17 @@ const App = () => {
           onChange={handleSearch}
           placeholder="Search for movies"
         />
+        
         <img
           src={SearchIcon}
           alt="search"
           onClick={() => searchMovies(searchTerm)}
         />
-      </div>
 
+      </div>
+      
+      
+      
       {movies?.length > 0 ? (
         <div className="container">
           {movies.map((movie) => (

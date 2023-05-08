@@ -81,7 +81,11 @@ h1 {
 .top-movie.active {
   background-color: #4b04a7;
 }
-
+.top-movie:hover{
+  background-color: #2e2e2f;
+  box-shadow: 0 0 4px 0 #4b04a7 , 0 0 2px 2px #4b04a7;
+  border: 0px solid #4b04a7;
+}
 .search {
   width: 60%;
   margin: 2rem 0 1rem;
@@ -113,6 +117,7 @@ h1 {
   position: relative;
   text-decoration: none;
 }
+
 
 .menu a::before {
   content: "";
@@ -316,7 +321,7 @@ svg SearchIcon {
 .footer p {
   display: inline-block;
   border-bottom: 1px solid transparent;
-  background-image: linear-gradient(to right, #000, #000 50%, transparent 50%);
+  background-image: linear-gradient(to right, #121212, #121212 50%, transparent 50%);
   background-size: 200% 100%;
   background-position: 0 100%;
   transition: background-position 0.3s;
